@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Würfel</title>
+        <link rel="stylesheet" href="wuerfel.css">
+    </head>
+    <body>
+        <h1>Würfel</h1>
+        <p>Hier kannst du einen Würfel werfen.</p>
+        <script src="wuerfel.js"></script>
+        <button onclick="wuerfeln()", id="wuerfelnB">Würfeln</button>
+        <div class="Phase2" id="phase2" style="display:none;">
+            <p id="aufgabe"></p>
+            <input type="text" id="eingabe" placeholder="Antwort">
+            <button onclick="phase3()">Antwort prüfen</button>
+        </div>
+        <div class="Phase3">
+            <p id="check" style="display:none;"></p>
+            <button onclick="neu()" id="new" style="display:none">Nächste Aufgabe</button>
+            <p id="check" style="display:none;"></p>
+            <p id="points"></p>
+        </div>
+
+        <script>
+            function zeigePhase2() {
+                document.getElementById("phase2").style.display = "block";
+            }
+            
+        </script>
+    </body>
+</html>
+<!-- 
+
+ --->
