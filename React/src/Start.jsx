@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { useEffect } from "react";
 
 function Start() {
   const [areaAddSub, setAreaAddSub] = useState(100);
   const [areaMulDiv, setAreaMulDiv] = useState(100);
   const [submitted, setSubmitted] = useState(false);
   const [submittedAddSub, setSubmittedAddSub] = useState(false)
-  let [solution, setSolution] = useState()
+  const [solution, setSolution] = useState()
   const [Task, setTask] = useState([])
+  const [showSolution, setShowSolution] = useState(false)
+  const [input, setInput] = useState("")
   let content
-  //const [task, setTask] = useState()
+  let sol
+  const [feedback, setFeedback] = useState()
+  console.log("Loading vars")
 
   const handleAreaChangeAddSub = (e) => {
     setAreaAddSub(e.target.value);
@@ -16,7 +21,6 @@ function Start() {
   const handleAreaChangeMulDiv = (e) => {
     setAreaMulDiv(e.target.value);
   };
-
   const handleAreaSetMulDiv = () => {
     setSubmitted(true); // Eingabefeld ausblenden
     CreateTask()
@@ -31,25 +35,62 @@ function Start() {
     if (operatorNUM === 1) { // +
         let num1 = Math.floor(Math.random() * areaAddSub) + 1;
         let num2 = Math.floor(Math.random() * areaAddSub) + 1;
-        setTask([num1,"+",num2])
+        setTask(()=>[num1,"+",num2])
     }
     else if (operatorNUM === 2) { // -
         let num1 = Math.floor(Math.random() * areaAddSub) + 1;
         let num2 = Math.floor(Math.random() * areaAddSub) + 1;
-        setTask([num1,"+",num2])
+        setTask(()=>[num1,"-",num2])
     }
     else if (operatorNUM===3) { // *
         let num1 = Math.floor(Math.random() * areaMulDiv) + 1;
         let num2 = Math.floor(Math.random() * areaMulDiv) + 1;
-        setTask([num1,"+",num2])
+        setTask(()=>[num1,"*",num2])
     }
     else if (operatorNUM === 4) {
         let num1 = Math.floor(Math.random() * areaMulDiv) + 1;
         let num2 = Math.floor(Math.random() * areaMulDiv) + 1;
-        setTask([num1,"+",num2])
+        setTask(()=>[num1,"/",num2])
     }
-    
     }
+  useEffect(()=> {
+    if (Task.length===0) return;
+    console.log("Starting to calculate solution")
+    console.log("Task from calc(): "+Task)
+    if (Task[1] === "+") {
+      setSolution(Task[0]+Task[2])
+    }
+    else if (Task[1] === "-") {
+      setSolution(Task[0]-Task[2])
+    }
+    else if (Task[1] === "*") {
+      setSolution(Task[0]*Task[2])
+  }
+    else if (Task[1] === "/") {
+      setSolution(Task[0]/Task[2])
+    }
+    console.log("Solution: "+solution)
+    //setShowSolution(true)
+
+
+  }, [Task])
+  
+  const handleInputChange = (e) => {
+    setInput(e.target.value)
+  }
+  const handleInputSet = () => {
+    console.log("input: "+input)
+    console.log("Solution from handleInputSet: "+solution)
+    if (Number(input) == solution) {
+      console.log("Correct!")
+      setFeedback (<p>Richtig!</p>)
+    }
+    else {
+      console.log("Wrong!")
+      setFeedback(<p>Leider falsch</p>)
+    }
+  }
+  
     
     // prüfen, ob die Rechnung in Ordnung ist
 
@@ -98,13 +139,21 @@ function Start() {
         <h3>Löse die folgende Aufgabe:</h3>
         {console.log("Task: "+Task)}
         <p>{Task}</p>
+        <input value={input} type="number" id="solINPUT" placeholder="Gib deine Aufgabe ein" onChange={handleInputChange}></input>
+        <button onClick={handleInputSet}>Prüfen</button>
       </div>
       )
     }
-      
+    
+    if (solution) {
+      sol = (
+        <p>Solution: {solution}</p>
+      )
+    }
+    else {sol = (<> </>)}
     
   return (
-  <div className="All">{content}</div>
+  <div className="All">{content}{sol}{feedback}</div>
   )
 };
 
