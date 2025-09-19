@@ -1,0 +1,30 @@
+body {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:800px;
+}
+.displayNums {
+    height:130px;
+    display:flex;
+    flex-direction:column;
+    zoom:2.2;
+    border:1px solid black;
+    border-radius:10px;
+    padding:15px;
+    background-color:hsl(0,0%,90%);
+    padding-left:60px;
+    padding-right:60px;
+}
+.displayNums.solution {
+    height:430px;
+}
+.header {
+    flex: 0 0 auto;
+}
+.feedback-container {
+    flex: 1 1 auto; /* nimmt den restlichen Platz ein */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Inhalt immer unten */
+}
