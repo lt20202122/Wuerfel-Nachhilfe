@@ -7,6 +7,7 @@ function Start() {
   const [task, setTask] = useState([]);
   const [input, setInput] = useState("");
   const [feedback, setFeedback] = useState();
+  const [active, setActive] = useState(false)
 
   const [submitted, setSubmitted] = useState(false);
   const [submittedAddSub, setSubmittedAddSub] = useState(false);
@@ -16,22 +17,38 @@ function Start() {
   const createTask = () => {
     let operatorNUM = Math.floor(Math.random() * 4) + 1;
     if (operatorNUM === 1) {
-      let num1 = Math.floor(Math.random() * areaAddSub) + 1;
-      let num2 = Math.floor(Math.random() * areaAddSub) + 1;
-      setTask([num1, "+", num2]);
-    } else if (operatorNUM === 2) {
-      let num1 = Math.floor(Math.random() * areaAddSub) + 1;
-      let num2 = Math.floor(Math.random() * areaAddSub) + 1;
-      setTask([num1, "-", num2]);
-    } else if (operatorNUM === 3) {
-      let num1 = Math.floor(Math.random() * areaMulDiv) + 1;
-      let num2 = Math.floor(Math.random() * areaMulDiv) + 1;
-      setTask([num1, "*", num2]);
-    } else if (operatorNUM === 4) {
-      let num1 = Math.floor(Math.random() * areaMulDiv) + 1;
-      let num2 = Math.floor(Math.random() * areaMulDiv) + 1;
-      setTask([num1, "/", num2]);
-    }
+      console.log("Operator: +")
+      let num1 = Math.floor(Math.random() * Number(areaAddSub)) + 1;
+      let num2 = Math.floor(Math.random() * Number(areaAddSub)) + 1;
+      setTask([num1,"+",num2])
+      } 
+
+      else if (operatorNUM === 2) {
+        console.log("Operator: -")
+        let num1 = Math.floor(Math.random() * areaAddSub) + 1;
+        let num2 = Math.floor(Math.random() * areaAddSub) + 1;
+
+        if (num1>num2) setTask([num1, "-", num2]);
+        else setTask([num2,"-",num1])
+      } 
+    
+      else if (operatorNUM === 3) {
+        console.log("Operator: *")
+        let num1 = Math.floor(Math.random() * Number(areaMulDiv)) + 1;
+        let num2 = Math.floor(Math.random() * Number(areaMulDiv)) + 1;
+        setTask([num1, "*", num2]);
+      } 
+      else if (operatorNUM === 4) {
+        console.log("Operator: /")
+        let num1;
+        let num2;
+        //check task
+        do {
+          num1 = Math.floor(Math.random() * Number(areaMulDiv)) + 1;
+          num2 = Math.floor(Math.random() * Number(areaMulDiv)) + 1;
+        } while (num1 % num2 !== 0);
+        setTask([num1, "/", num2]);
+      }
   };
 
   
@@ -42,24 +59,34 @@ function Start() {
     setInput("")
     setFeedback(null)
     setSolution(null)
-    document.getElementById("solINPUT").disabled=false
+    setActive(false)
+    console.log("Handling new Task")
     createTask()
 
   }
   const handleInputSet = () => {
-    if (Number(input) === solution) {
-      setFeedback(<p>Richtig!</p>);
+    const numericInput = Number(input);
+    let baseFeedback;
+    if (numericInput === solution) {
+      baseFeedback = <p>Richtig!</p>;
     } else {
-      setFeedback(<><p>Leider falsch!</p>
-      <p>Die richtige Lösung wäre {solution} gewesen.</p></>);
+      baseFeedback = (
+        <>
+          <p>Leider falsch!</p>
+          <p>Die richtige Lösung wäre {solution} gewesen.</p>
+        </>
+      );
     }
-    document.getElementById("solINPUT").disabled=true
-    setFeedback(prev => (
+
+    const newFeedback = (
       <>
-        {prev}
+        {baseFeedback}
         <button onClick={handleNewTask}>Neue Aufgabe</button>
       </>
-    ));
+    );
+
+    setFeedback(newFeedback);
+    setActive(true);
   };
 
   return (
@@ -89,6 +116,8 @@ function Start() {
         setSolution={setSolution}
         input={input}
         setInput={setInput}
+        active={active}
+        setActive={setActive}
         />
       )}
     </div>

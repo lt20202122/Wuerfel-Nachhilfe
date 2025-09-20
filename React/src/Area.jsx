@@ -22,7 +22,7 @@ function Area(props) {
         <input
           type="number"
           value={areaAddSub}
-          onChange={(e) => setAreaAddSub(e.target.value)}
+          onChange={(e) => setAreaAddSub(Number(e.target.value))}
           placeholder="In welchem Bereich soll deine Zahl liegen? 1-?"
           step={100}
           min={100}
@@ -41,7 +41,7 @@ function Area(props) {
       <input
         type="number"
         value={areaMulDiv}
-        onChange={(e) => setAreaMulDiv(e.target.value)}
+        onChange={(e) => setAreaMulDiv(Number(e.target.value))}
         placeholder="In welchem Bereich soll deine Zahl liegen? 1-?"
         step={20}
         min={20}

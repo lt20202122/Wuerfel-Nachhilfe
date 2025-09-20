@@ -1,33 +1,40 @@
-body {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:440px;
+/* component layout */
+.learnArea{
+    padding:1rem;
+    max-width:420px;
+    width:100%;
+    color:var(--text);
+    line-height:1.25;
 }
-.learnArea {
-    line-height:1.15;
-    background-color:hsl(0,0%,90%);
-    border: 1px solid black;
-    border-radius:5px;
-    width:400px;
-    padding:15px;
-    padding-top:10px;
-    padding-bottom:20px;
-    color:hsl(0,0%,10%);
-    zoom:2.2
+
+.learnArea.card{padding:1.25rem}
+
+input[type="number"]{
+    background-color: #fff;
+    border:1px solid rgba(0,0,0,0.12);
+    border-radius:6px;
+    padding:0.5rem 0.65rem;
+    font-size:1rem;
+    width:100%;
+    margin:0.5rem 0 1rem 0;
 }
-input {
-    background-color:hsla(188, 100%, 89%, 0.568);
-    border: 1px solid black;
-    border-radius:2px;
-    margin-right:20px;
+
+input[type="number"]:focus{ outline:3px solid rgba(27,152,224,0.14); border-color:var(--accent) }
+
+button{
+    font-family: Roboto, Inter, Arial, sans-serif;
+    border-radius: 8px;
+    padding:0.5rem 0.85rem;
+    background:var(--accent);
+    color:white;
+    border:none;
+    cursor:pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
-button {
-    font-family: "Roboto";
-    border-radius: 3px;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-button:hover {
-    background-color:hsl(0,0%,85%);
-    transform: scale(1.1);
+button:hover{ transform: translateY(-2px); box-shadow: 0 8px 18px rgba(16,24,40,0.06) }
+button:disabled{ opacity:0.6; cursor:not-allowed }
+
+@media (max-width:480px){
+    body{ padding:1rem }
+    .learnArea{ padding:.75rem }
 }
