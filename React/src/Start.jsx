@@ -8,6 +8,9 @@ function Start() {
   const [input, setInput] = useState("");
   const [feedback, setFeedback] = useState();
   const [active, setActive] = useState(false)
+  const [time, setTime] = useState([0, 0]); // [Sekunden, Millisekunden]
+  const [running, setRunning] = useState(false);
+  const [startTime, setStartTime] = useState(null);
 
   const [submitted, setSubmitted] = useState(false);
   const [submittedAddSub, setSubmittedAddSub] = useState(false);
@@ -55,6 +58,8 @@ function Start() {
 
   const handleInputChange = (e) => setInput(e.target.value);
   const handleNewTask = () => {
+    setRunning(true)
+    setTime([0,0])
     setTask([])
     setInput("")
     setFeedback(null)
@@ -67,6 +72,7 @@ function Start() {
   const handleInputSet = () => {
     const numericInput = Number(input);
     let baseFeedback;
+    setRunning(false)
     if (numericInput === solution) {
       baseFeedback = <p>Richtig!</p>;
     } else {
@@ -118,6 +124,12 @@ function Start() {
         setInput={setInput}
         active={active}
         setActive={setActive}
+        time = {time}
+        setTime = {setTime}
+        running = {running}
+        setRunning = {setRunning}
+        startTime = {startTime} 
+        setStartTime = {setStartTime}
         />
       )}
     </div>
